@@ -3,9 +3,14 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
-                sh 'echo hello'
-            }
+          node {
+            checkout scm
+            sh 'echo hello'
+            def myEnv = docker.build 'mastodon'
+            // myEnv.inside {
+            //   sh 'make test'
+            // }
+          }
         }
     }
 }
